@@ -46,7 +46,6 @@ my-app
 │     ├─ ratingUtils.js
 │     ├─ ThemeContext.jsx
 │     └─ WatchlistContext.jsx
-├─ trya.ps1
 ├─ vercel.json
 └─ vite.config.js
 
