@@ -1,15 +1,23 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 
-export default function ProtectedRoute() {
-  const { user } = useAuth();
+// TAMBAHKAN { allowedRoles } DI DALAM KURUNG FUNGSI
+export default function ProtectedRoute({ allowedRoles }) { 
+  const { user, isLoading } = useAuth();
   const location = useLocation();
 
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
+
   if (!user) {
-    // Redirect ke /login, sambil bawa lokasi asal
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Sudah login → render child route
+  // Sekarang allowedRoles sudah dikenali
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
+  }
+
   return <Outlet />;
 }

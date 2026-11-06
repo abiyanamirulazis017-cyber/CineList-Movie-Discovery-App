@@ -6,6 +6,10 @@ import { useAuth } from "../utils/AuthContext";
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
+  
+  // Logika Proteksi Role Admin
+  if (!user || user.role !== 'admin') return <Navigate to="/login" />;
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
